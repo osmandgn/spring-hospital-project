@@ -35,4 +35,20 @@ public class PatientService {
             patientRepository.deleteById(id);
         }else throw new ResourceNotFoundException("Patient not Found");
     }
+
+    public void updatePatient(Long id, PatientDto patientDto) {
+        if(!patientRepository.existsById(id)){
+            throw new ResourceNotFoundException("Patient not found by id " + id);
+        }
+        Patient patient = patientRepository.getById(id);
+
+        patient.setName(patientDto.getFirstName());
+        patient.setGender(patientDto.getGender());
+        patient.setCity(patientDto.getCity());
+        patient.setAddress(patientDto.getAddress());
+        patient.setDateOfBirth(patientDto.getDateOfBirth());
+        patient.setHealthInsurance(patientDto.isHealthInsurance());
+
+        patientRepository.save(patient);
+    }
 }

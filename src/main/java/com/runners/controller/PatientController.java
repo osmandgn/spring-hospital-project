@@ -52,4 +52,24 @@ public class PatientController {
         String message = "Patient deleted successfully";
         return ResponseEntity.ok(message);
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Map<String, String>> updatePatient(@PathVariable("id") Long id,@Valid @RequestBody PatientDto patientDto){
+
+        patientService.updatePatient(id,patientDto);
+
+        Map<String,String> map = new HashMap<>();
+        map.put("message", "Patient is updated successfully.");
+        map.put("status", "true");
+
+        return new ResponseEntity<>(map, HttpStatus.CREATED);
+
+
+    }
+
+
+
+
+
+
 }
