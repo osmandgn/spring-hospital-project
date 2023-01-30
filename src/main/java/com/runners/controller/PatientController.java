@@ -2,6 +2,7 @@ package com.runners.controller;
 
 import com.runners.domain.Doctor;
 import com.runners.domain.Patient;
+import com.runners.dto.PatientDto;
 import com.runners.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,5 +35,21 @@ public class PatientController {
     public ResponseEntity<List<Patient>> getAllPatient(){
         List<Patient> patients = patientService.getAll();
         return ResponseEntity.ok(patients);
+    }
+
+    @GetMapping("/query")
+    public ResponseEntity<PatientDto> getPatient(@RequestParam("id") Long id){
+
+        PatientDto patientDto = patientService.findPatient(id);
+
+        return ResponseEntity.ok(patientDto);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePatient(@PathVariable Long id){
+        patientService.deletePatient(id);
+        String message = "Patient deleted successfully";
+        return ResponseEntity.ok(message);
     }
 }
