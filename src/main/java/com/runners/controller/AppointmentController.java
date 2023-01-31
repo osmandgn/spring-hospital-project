@@ -5,10 +5,7 @@ import com.runners.domain.Appointment;
 import com.runners.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,8 +23,12 @@ public class AppointmentController {
         String message = "Appointment is created succesfully.";
 
         return ResponseEntity.ok(message);
+    }
 
-
+    @GetMapping
+    public ResponseEntity<Appointment> getAppointmentById(@PathVariable Long id){
+        Appointment appointment = appointmentService.getAppointment(id);
+        return ResponseEntity.ok(appointment);
     }
 
 

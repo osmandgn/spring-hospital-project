@@ -29,15 +29,6 @@ public class AppointmentService {
         Patient patient = patientService.getPatientById(appointment.getPatientId());
         Doctor doctor = doctorService.getDoctorById(appointment.getDoctorId());
 
-
-//        boolean patientExists = patientService.existByid(appointment.getPatientId());
-//        boolean doctorExists = doctorService.existById(appointment.getDoctorId());
-//
-//        if (!patientExists) {
-//            throw new ResourceNotFoundException("Patient doesn't exist ! Please create new patient.");
-//        } else if (!doctorExists) {
-//            throw new ResourceNotFoundException("Doctor doesn't exist ! Please choose another doctor.");
-//        } else {
             appointment.setDoctor(doctor);
             appointment.setPatient(patient);
             appointmentRepository.save(appointment);
@@ -45,5 +36,10 @@ public class AppointmentService {
 
 
 
+    }
+
+    public Appointment getAppointment(Long id) {
+       return appointmentRepository.findById(id).orElseThrow(
+               ()-> new ResourceNotFoundException("Appointment Not Found"));
     }
 }
