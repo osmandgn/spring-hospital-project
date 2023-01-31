@@ -11,6 +11,8 @@ import com.runners.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AppointmentService {
 
@@ -41,5 +43,9 @@ public class AppointmentService {
     public Appointment getAppointment(Long id) {
        return appointmentRepository.findById(id).orElseThrow(
                ()-> new ResourceNotFoundException("Appointment Not Found"));
+    }
+
+    public List<Appointment> getAll() {
+        return appointmentRepository.findAll();
     }
 }

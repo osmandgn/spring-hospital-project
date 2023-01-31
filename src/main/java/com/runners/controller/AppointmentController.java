@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("v1/appointment")       // http://localhost:8080/v1/
@@ -25,11 +26,19 @@ public class AppointmentController {
         return ResponseEntity.ok(message);
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<Appointment> getAppointmentById(@PathVariable Long id){
         Appointment appointment = appointmentService.getAppointment(id);
         return ResponseEntity.ok(appointment);
     }
+
+    @GetMapping
+    public ResponseEntity<List<Appointment>> getAppointmentList(){
+        List<Appointment> appointmentList = appointmentService.getAll();
+        return ResponseEntity.ok(appointmentList);
+    }
+
+
 
 
 
