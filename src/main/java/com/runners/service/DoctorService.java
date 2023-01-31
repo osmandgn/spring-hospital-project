@@ -1,5 +1,6 @@
 package com.runners.service;
 
+
 import com.runners.domain.Doctor;
 import com.runners.dto.DoctorDTO;
 import com.runners.exception.ConflictException;
@@ -15,51 +16,71 @@ public class DoctorService {
 
     @Autowired
     private DoctorRepository doctorRepository;
+
     public void createDoctor(Doctor doctor) {
-        if(doctorRepository.existsByTcNo(doctor.getTcNo())){
-            throw new ConflictException("TcNo already exists");
+
+        if (doctorRepository.existsByTcNo(doctor.getTcNo())) {
+            throw new ConflictException("Tcno already exists !");
         }
         doctorRepository.save(doctor);
+
     }
 
-    public List<Doctor> getAllDocs() {
+    public List<Doctor> getAll() {
+
         return doctorRepository.findAll();
     }
 
-    public DoctorDTO getDocById(Long id) {
-//        if (!doctorRepository.existsById(id)){
-//            throw new ResourceNotFoundException("Doctor not found by id");
-//        }
-//        Doctor doctor = doctorRepository.getById(id);
+    public DoctorDTO getByIdDTO(Long id) {
+
         Doctor doctor = doctorRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Doctor not found by id"));
-        DoctorDTO doctorDTO = new DoctorDTO(doctor);
-        return doctorDTO;
+                () -> new ResourceNotFoundException("Doctor not found by id : " + id));
+        DoctorDTO dto = new DoctorDTO(doctor);
+
+        return dto;
+
     }
 
-    public void deleteById(Long id) {
-       if (doctorRepository.existsById(id)){
-           doctorRepository.deleteById(id);
-       }else throw new ResourceNotFoundException("Doctor Not Found by id " + id);
+    public void deleteDoc(Long id) {
+
+        if (doctorRepository.existsById(id)) {
+            doctorRepository.deleteById(id);
+        } else throw new ResourceNotFoundException("Doctor not found by id : " + id);
 
     }
 
     public void updateDoctor(Long id, DoctorDTO doctorDTO) {
-        boolean existTc = doctorRepository.existsByTcNo(doctorDTO.getTcNo());
+
+       boolean existTc = doctorRepository.existsByTcNo(doctorDTO.getTcNo());
 
         Doctor doctor = doctorRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Doctor not found by id : " + id));
 
-        if(existTc && ! doctorDTO.getTcNo().equals(doctor.getTcNo())){
-            throw new ConflictException("Tcno already exists !");
-        }
-        doctor.setName(doctorDTO.getFirstName());
-        doctor.setTcNo(doctorDTO.getTcNo());
-        doctor.setDepartmentName(doctorDTO.getDepartment());
-        doctor.setPrefixName(doctorDTO.getPrefix());
-        doctor.setDateOfGraduate(doctorDTO.getDateOfGraduate());
-        doctor.setDateOfStart(doctorDTO.getDateOfStart());
+       if(existTc && ! doctorDTO.getTcNo().equals(doctor.getTcNo())){
+           throw new ConflictException("Tcno already exists !");
+       }
+       doctor.setName(doctorDTO.getFirstName());
+       doctor.setTcNo(doctorDTO.getTcNo());
+       doctor.setDepartmentName(doctorDTO.getDepartment());
+       doctor.setPrefixName(doctorDTO.getPrefix());
+       doctor.setDateOfGraduate(doctorDTO.getDateOfGraduate());
+       doctor.setDateOfStart(doctorDTO.getDateOfStart());
 
-        doctorRepository.save(doctor);
+       doctorRepository.save(doctor);
+
+    }
+
+    public Doctor getDoctorById(Long id){
+
+        return doctorRepository.findById(id).orElseThrow(
+                ()-> new ResourceNotFoundException("Doctor not found by id :" + id));
+
+
+    }
+
+    public boolean existById(Long id){
+        boolean exists = doctorRepository.existsById(id);
+
+        return exists;
     }
 }

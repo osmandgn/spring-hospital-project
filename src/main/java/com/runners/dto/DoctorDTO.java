@@ -4,22 +4,28 @@ package com.runners.dto;
 import com.runners.domain.Doctor;
 import com.runners.domain.enums.Department;
 import com.runners.domain.enums.Prefix;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 import lombok.Setter;
+
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+
+
+@AllArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
+
 public class DoctorDTO {
 
 
     @Size(min = 2, max = 30, message = "First name '${validatedValue}' must be between {min} and {max} long")
     @NotBlank(message = "First name cannot be empty or blank !")
     private String firstName;
+
 
 
     private Prefix prefix;
@@ -36,7 +42,7 @@ public class DoctorDTO {
 
     private Integer dateOfStart;
 
-    public DoctorDTO(Doctor doctor) {
+    public DoctorDTO(Doctor doctor){
 
         this.firstName = doctor.getName();
         this.prefix = doctor.getPrefixName();
@@ -46,6 +52,8 @@ public class DoctorDTO {
         this.dateOfStart = doctor.getDateOfStart();
 
     }
+
+
 
 
 }

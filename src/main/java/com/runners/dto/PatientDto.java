@@ -1,11 +1,13 @@
 package com.runners.dto;
 
+
 import com.runners.domain.Patient;
 import com.runners.domain.enums.City;
 import com.runners.domain.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -46,4 +48,16 @@ public class PatientDto {
         this.healthInsurance = patient.isHealthInsurance();
 
 
-    }}
+    }
+
+
+
+
+
+
+
+
+
+
+
+}

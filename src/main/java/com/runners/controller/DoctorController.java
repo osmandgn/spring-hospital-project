@@ -1,5 +1,6 @@
 package com.runners.controller;
 
+
 import com.runners.domain.Doctor;
 import com.runners.dto.DoctorDTO;
 import com.runners.service.DoctorService;
@@ -20,37 +21,49 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-    @PostMapping
-    public ResponseEntity<Map<String, String>> createDoctor (@Valid @RequestBody Doctor doctor){
+    @PostMapping // http://localhost:8080/v1/doctor
+    public ResponseEntity<Map<String, String>> createDoctor(@Valid @RequestBody Doctor doctor) {
         doctorService.createDoctor(doctor);
+
         Map<String, String> map = new HashMap<>();
-        map.put("message", "Doctor created succesfully");
+        map.put("message", "Doctor is created successfully ");
         map.put("status", "true");
+
         return new ResponseEntity<>(map, HttpStatus.CREATED);
+
     }
 
-    @GetMapping
-    public ResponseEntity<List<Doctor>> getAllDocs(){
-        List<Doctor> doctorList = doctorService.getAllDocs();
-        return ResponseEntity.ok(doctorList);
+    @GetMapping // http://localhost:8080/v1/doctor
+    public ResponseEntity<List<Doctor>> getAllDoctor() {
+        List<Doctor> list = doctorService.getAll();
+
+        return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DoctorDTO> getDocDTOByID(@PathVariable Long id){
-        DoctorDTO doctorDTO = doctorService.getDocById(id);
-        return ResponseEntity.ok(doctorDTO);
+    @GetMapping("/{id}") // http://localhost:8080/v1/doctor/1
+    public ResponseEntity<DoctorDTO> getDocDTOById(@PathVariable("id") Long id) {
+
+        DoctorDTO dto = doctorService.getByIdDTO(id);
+
+        return ResponseEntity.ok(dto);
+
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Long id){
-        doctorService.deleteById(id);
-        String message = "Doctor is Deleted";
+    @DeleteMapping("/{id}") // http://localhost:8080/v1/doctor/1
+    public ResponseEntity<String> deleteById(@PathVariable Long id) {
+
+        doctorService.deleteDoc(id);
+
+        String message = "Doctor is deleted successfully.";
+
         return ResponseEntity.ok(message);
+
+
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") // http://localhost:8080/v1/doctor/1
     public ResponseEntity<Map<String, String>> updateDoctor(@PathVariable("id") Long id,
-                                                            @Valid @RequestBody DoctorDTO doctorDTO){
+                                                           @Valid @RequestBody DoctorDTO doctorDTO){
 
         doctorService.updateDoctor(id,doctorDTO);
         Map<String,String> map = new HashMap<>();

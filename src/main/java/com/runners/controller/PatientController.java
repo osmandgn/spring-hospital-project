@@ -1,6 +1,6 @@
 package com.runners.controller;
 
-import com.runners.domain.Doctor;
+
 import com.runners.domain.Patient;
 import com.runners.dto.PatientDto;
 import com.runners.service.PatientService;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("v1/patient")
+@RequestMapping("v1/patient") //http://localhost:8080/v1/patient
 public class PatientController {
 
     @Autowired
@@ -24,17 +24,24 @@ public class PatientController {
 
     @PostMapping
     public ResponseEntity<Map<String, String>> createPatient(@Valid @RequestBody Patient patient){
+
         patientService.createPatient(patient);
-        Map<String, String> map = new HashMap<>();
-        map.put("message", "Doctor created succesfully");
+
+        Map<String,String> map = new HashMap<>();
+        map.put("message", "Patient is created successfully.");
         map.put("status", "true");
+
         return new ResponseEntity<>(map, HttpStatus.CREATED);
+
     }
 
     @GetMapping
-    public ResponseEntity<List<Patient>> getAllPatient(){
-        List<Patient> patients = patientService.getAll();
-        return ResponseEntity.ok(patients);
+    public ResponseEntity<List<Patient>> getAll(){
+
+       List<Patient> patientList = patientService.getAll();
+
+       return ResponseEntity.ok(patientList);
+
     }
 
     @GetMapping("/query")
@@ -46,11 +53,13 @@ public class PatientController {
 
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePatient(@PathVariable Long id){
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deletePatient(@PathVariable("id") Long id){
         patientService.deletePatient(id);
-        String message = "Patient deleted successfully";
+        String message = "Patient is deleted successfully !";
+
         return ResponseEntity.ok(message);
+
     }
 
     @PutMapping("{id}")
@@ -66,6 +75,13 @@ public class PatientController {
 
 
     }
+
+
+
+
+
+
+
 
 
 

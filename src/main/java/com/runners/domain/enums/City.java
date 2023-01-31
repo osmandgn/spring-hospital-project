@@ -1,10 +1,22 @@
 package com.runners.domain.enums;
 
 public enum City {
+
     LONDON,
+
     ROME,
-    NEWYORK,
+
+    NEW_YORK,
+
     PARIS,
+
     TOKYO,
-    MOSKOW,
+
+    MOSCOW
+
+
+
+
+
+
 }

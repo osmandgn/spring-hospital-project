@@ -28,6 +28,7 @@ public class Doctor {
     @NotBlank(message = "First name cannot be empty or blank !")
     private String name;
 
+
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
     private Prefix prefixName;
@@ -42,12 +43,38 @@ public class Doctor {
     @Column(nullable = false)
     private Department departmentName;
 
+
     private Integer dateOfGraduate;
+
 
     private Integer dateOfStart;
 
+
     @OneToMany(mappedBy = "doctor")
     private List<Appointment> appointmentList = new ArrayList<>();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
