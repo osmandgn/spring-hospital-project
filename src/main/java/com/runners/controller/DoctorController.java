@@ -2,6 +2,7 @@ package com.runners.controller;
 
 
 import com.runners.domain.Doctor;
+import com.runners.dto.DocResponse;
 import com.runners.dto.DoctorDTO;
 import com.runners.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,22 @@ public class DoctorController {
 
     }
 
-    @GetMapping // http://localhost:8080/v1/doctor
-    public ResponseEntity<List<Doctor>> getAllDoctor() {
-        List<Doctor> list = doctorService.getAll();
+//    @GetMapping // http://localhost:8080/v1/doctor
+//    public ResponseEntity<List<Doctor>> getAllDoctor() {
+//        List<Doctor> list = doctorService.getAll();
+//
+//        return ResponseEntity.ok(list);
+//    }
 
-        return ResponseEntity.ok(list);
+    @GetMapping
+    public ResponseEntity<List<DocResponse>> getAllDoc(){
+
+        List<DocResponse> docResponseList = doctorService.getAllDoc();
+        return ResponseEntity.ok(docResponseList);
+
     }
+
+
 
     @GetMapping("/{id}") // http://localhost:8080/v1/doctor/1
     public ResponseEntity<DoctorDTO> getDocDTOById(@PathVariable("id") Long id) {

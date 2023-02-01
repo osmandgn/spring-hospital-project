@@ -2,6 +2,7 @@ package com.runners.controller;
 
 
 import com.runners.domain.Patient;
+import com.runners.dto.PatResponse;
 import com.runners.dto.PatientDto;
 import com.runners.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,11 @@ public class PatientController {
 
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> createPatient(@Valid @RequestBody Patient patient){
+    public ResponseEntity<Map<String, String>> createPatient(@Valid @RequestBody Patient patient) {
 
         patientService.createPatient(patient);
 
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("message", "Patient is created successfully.");
         map.put("status", "true");
 
@@ -35,17 +36,24 @@ public class PatientController {
 
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<Patient>> getAll(){
+//
+//       List<Patient> patientList = patientService.getAll();
+//
+//       return ResponseEntity.ok(patientList);
+//
+//    }
+
     @GetMapping
-    public ResponseEntity<List<Patient>> getAll(){
-
-       List<Patient> patientList = patientService.getAll();
-
-       return ResponseEntity.ok(patientList);
+    public ResponseEntity<List<PatResponse>> getAllPat() {
+        List<PatResponse> patResponseList = patientService.getAllPatient();
+        return ResponseEntity.ok(patResponseList);
 
     }
 
     @GetMapping("/query")
-    public ResponseEntity<PatientDto> getPatient(@RequestParam("id") Long id){
+    public ResponseEntity<PatientDto> getPatient(@RequestParam("id") Long id) {
 
         PatientDto patientDto = patientService.findPatient(id);
 
@@ -54,7 +62,7 @@ public class PatientController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deletePatient(@PathVariable("id") Long id){
+    public ResponseEntity<String> deletePatient(@PathVariable("id") Long id) {
         patientService.deletePatient(id);
         String message = "Patient is deleted successfully !";
 
@@ -63,11 +71,11 @@ public class PatientController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Map<String, String>> updatePatient(@PathVariable("id") Long id,@Valid @RequestBody PatientDto patientDto){
+    public ResponseEntity<Map<String, String>> updatePatient(@PathVariable("id") Long id, @Valid @RequestBody PatientDto patientDto) {
 
-        patientService.updatePatient(id,patientDto);
+        patientService.updatePatient(id, patientDto);
 
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("message", "Patient is updated successfully.");
         map.put("status", "true");
 
@@ -75,17 +83,6 @@ public class PatientController {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -1,6 +1,7 @@
 package com.runners.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.runners.domain.enums.Department;
 import com.runners.domain.enums.Prefix;
 import lombok.*;
@@ -49,7 +50,7 @@ public class Doctor {
 
     private Integer dateOfStart;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "doctor")
     private List<Appointment> appointmentList = new ArrayList<>();
 

@@ -5,6 +5,7 @@ import com.runners.domain.Appointment;
 import com.runners.domain.Doctor;
 import com.runners.domain.Patient;
 import com.runners.dto.AppDto;
+import com.runners.dto.AppRequest;
 import com.runners.exception.ResourceNotFoundException;
 import com.runners.repository.AppointmentRepository;
 import com.runners.repository.DoctorRepository;
@@ -51,5 +52,37 @@ public class AppointmentService {
         }
         return appDtoList;
 
+    }
+
+    public AppDto findAppDto(Long id) {
+
+        Appointment appointment = appointmentRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Appointment not found by id : " + id));
+        AppDto appDto = new AppDto(appointment);
+        return appDto;
+    }
+
+    public void updateAppointment(Long id, AppRequest appRequest) {
+
+        Doctor doctor = doctorService.getDoctorById(appRequest.getDoctorId());
+        Appointment appointment = appointmentRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Appointment not found by id : " + id));
+        appointment.setDoctorId(appRequest.getDoctorId());
+        appointment.setHour(appRequest.getHour());
+        appointment.setDate(appRequest.getDate());
+        appointment.setMinute(appRequest.getMinute());
+        appointment.setNotes(appRequest.getNotes());
+
+        appointment.setDoctor(doctor);
+
+        appointmentRepository.save(appointment);
+
+
+    }
+
+    public void deleteAppointment(Long id) {
+       if( appointmentRepository.existsById(id)){
+           appointmentRepository.deleteById(id);
+       }else throw new ResourceNotFoundException("Appointment not found with id : "+id);
     }
 }

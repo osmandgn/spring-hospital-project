@@ -2,6 +2,7 @@ package com.runners.service;
 
 
 import com.runners.domain.Doctor;
+import com.runners.dto.DocResponse;
 import com.runners.dto.DoctorDTO;
 import com.runners.exception.ConflictException;
 import com.runners.exception.ResourceNotFoundException;
@@ -9,6 +10,7 @@ import com.runners.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +32,20 @@ public class DoctorService {
 
         return doctorRepository.findAll();
     }
+
+
+    public List<DocResponse> getAllDoc() {
+        List<Doctor> doctorList = doctorRepository.findAll();
+        List<DocResponse> docResponseList = new ArrayList<>();
+
+        for(Doctor w: doctorList){
+            DocResponse docResponse = new DocResponse(w);
+            docResponseList.add(docResponse);
+        }
+        return docResponseList;
+    }
+
+
 
     public DoctorDTO getByIdDTO(Long id) {
 
@@ -83,4 +99,6 @@ public class DoctorService {
 
         return exists;
     }
+
+
 }

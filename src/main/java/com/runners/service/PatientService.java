@@ -2,12 +2,14 @@ package com.runners.service;
 
 
 import com.runners.domain.Patient;
+import com.runners.dto.PatResponse;
 import com.runners.dto.PatientDto;
 import com.runners.exception.ResourceNotFoundException;
 import com.runners.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +29,18 @@ public class PatientService {
 
         return patientRepository.findAll();
 
+    }
+
+
+    public List<PatResponse> getAllPatient() {
+         List<Patient> patientList = patientRepository.findAll();
+         List<PatResponse> patResponseList = new ArrayList<>();
+
+         for(Patient w: patientList){
+             PatResponse pat = new PatResponse(w);
+             patResponseList.add(pat);
+         }
+        return patResponseList;
     }
 
     public PatientDto findPatient(Long id) {
@@ -78,6 +92,7 @@ public class PatientService {
         boolean exists = patientRepository.existsById(id);
         return exists;
     }
+
 
 
 }
