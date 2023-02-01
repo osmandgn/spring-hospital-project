@@ -44,7 +44,7 @@ public class DocResponse {
     private Integer dateOfStart;
 
 
-    private List<Appointment> appointmentList = new ArrayList<>();
+    private List<AppDto> appointmentList = new ArrayList<>();
 
     public DocResponse(Doctor doctor) {
         this.name = doctor.getName();
@@ -52,6 +52,6 @@ public class DocResponse {
         this.departmentName = doctor.getDepartmentName();
         this.dateOfGraduate = doctor.getDateOfGraduate();
         this.dateOfStart = doctor.getDateOfStart();
-        this.appointmentList = doctor.getAppointmentList();
+        //   this.appointmentList = doctor.getAppointmentList();
     }
 }

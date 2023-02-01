@@ -42,7 +42,7 @@ public class PatResponse {
     private boolean healthInsurance;
 
 
-    private List<Appointment> appointmentList = new ArrayList<>();
+    private List<AppDto> appointmentList = new ArrayList<>();
 
     public PatResponse(Patient patient) {
         this.name = patient.getName();
@@ -51,6 +51,5 @@ public class PatResponse {
         this.city = patient.getCity();
         this.address = patient.getAddress();
         this.healthInsurance = patient.isHealthInsurance();
-        this.appointmentList = patient.getAppointmentList();
     }
 }

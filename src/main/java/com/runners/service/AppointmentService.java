@@ -11,6 +11,7 @@ import com.runners.repository.AppointmentRepository;
 import com.runners.repository.DoctorRepository;
 import com.runners.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,12 +21,15 @@ import java.util.List;
 public class AppointmentService {
 
     @Autowired
+    @Lazy
     private AppointmentRepository appointmentRepository;
 
     @Autowired
+    @Lazy
     private DoctorService doctorService;
 
     @Autowired
+    @Lazy
     private PatientService patientService;
 
 
@@ -61,6 +65,25 @@ public class AppointmentService {
         AppDto appDto = new AppDto(appointment);
         return appDto;
     }
+
+    public List<AppDto> findAppDtoByDoctor(Doctor doctor){
+      List<Appointment> appointments = appointmentRepository.findAllByDoctor(doctor);
+      List<AppDto> appDtoList = new ArrayList<>();
+      for(Appointment app: appointments){
+          appDtoList.add(new AppDto(app));
+      }
+      return appDtoList;
+    }
+
+    public List<AppDto> findAppDtoByPatient(Patient patient){
+        List<Appointment> appointments = appointmentRepository.findAllByPatient(patient);
+        List<AppDto> appDtoList = new ArrayList<>();
+        for(Appointment app: appointments){
+            appDtoList.add(new AppDto(app));
+        }
+        return appDtoList;
+    }
+
 
     public void updateAppointment(Long id, AppRequest appRequest) {
 

@@ -2,11 +2,13 @@ package com.runners.service;
 
 
 import com.runners.domain.Patient;
+import com.runners.dto.AppDto;
 import com.runners.dto.PatResponse;
 import com.runners.dto.PatientDto;
 import com.runners.exception.ResourceNotFoundException;
 import com.runners.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +19,10 @@ public class PatientService {
 
     @Autowired
     private PatientRepository patientRepository;
+
+    @Autowired
+    @Lazy
+    private AppointmentService appointmentService;
 
 
     public void createPatient(Patient patient) {
@@ -36,8 +42,11 @@ public class PatientService {
          List<Patient> patientList = patientRepository.findAll();
          List<PatResponse> patResponseList = new ArrayList<>();
 
+
          for(Patient w: patientList){
              PatResponse pat = new PatResponse(w);
+             List<AppDto> appDtoList = appointmentService.findAppDtoByPatient(w);
+             pat.setAppointmentList(appDtoList);
              patResponseList.add(pat);
          }
         return patResponseList;
@@ -86,6 +95,7 @@ public class PatientService {
         return patientRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Patient not found by id :" + id));
     }
+
 
     public boolean existByid(Long id) {
 
