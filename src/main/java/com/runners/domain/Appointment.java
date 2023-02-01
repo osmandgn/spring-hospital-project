@@ -1,7 +1,6 @@
 package com.runners.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;

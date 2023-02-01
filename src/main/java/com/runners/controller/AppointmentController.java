@@ -2,6 +2,7 @@ package com.runners.controller;
 
 
 import com.runners.domain.Appointment;
+import com.runners.dto.AppDto;
 import com.runners.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,24 +22,19 @@ public class AppointmentController {
     public ResponseEntity<String> createAppointment (@Valid @RequestBody Appointment appointment){
         appointmentService.createAppointment(appointment);
 
-        String message = "Appointment is created succesfully.";
+        String message = "Appointment is created successfully.";
 
         return ResponseEntity.ok(message);
-    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Appointment> getAppointmentById(@PathVariable Long id){
-        Appointment appointment = appointmentService.getAppointment(id);
-        return ResponseEntity.ok(appointment);
     }
 
     @GetMapping
-    public ResponseEntity<List<Appointment>> getAppointmentList(){
-        List<Appointment> appointmentList = appointmentService.getAll();
-        return ResponseEntity.ok(appointmentList);
+    public ResponseEntity<List<AppDto>> getAllDto(){
+       List<AppDto> appDtoList = appointmentService.getAllDto();
+
+       return ResponseEntity.ok(appDtoList);
+
     }
-
-
 
 
 
