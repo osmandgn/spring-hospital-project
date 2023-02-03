@@ -2,7 +2,7 @@ package com.runners.service;
 
 
 import com.runners.domain.Patient;
-import com.runners.dto.AppPatDto;
+import com.runners.dto.AppointmentDtoForPat;
 import com.runners.dto.PatResponse;
 import com.runners.dto.PatientDto;
 import com.runners.exception.ResourceNotFoundException;
@@ -46,7 +46,7 @@ public class PatientService {
 
          for(Patient w: patientList){
              PatResponse pat = new PatResponse(w);
-             List<AppPatDto> appPatDtoList = appointmentService.findAppDtoByPatient(w);
+             List<AppointmentDtoForPat> appPatDtoList = appointmentService.findAppDtoByPatient(w);
              pat.setList(appPatDtoList);
              patResponseList.add(pat);
          }
@@ -58,7 +58,7 @@ public class PatientService {
         Patient patient = patientRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Patient not found by id : " + id));
 
-        List<AppPatDto> appPatDtoList = appointmentService.findAppDtoByPatient(patient);
+        List<AppointmentDtoForPat> appPatDtoList = appointmentService.findAppDtoByPatient(patient);
         PatResponse patientDto = new PatResponse(patient);
         patientDto.setList(appPatDtoList);
 

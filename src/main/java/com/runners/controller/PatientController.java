@@ -2,7 +2,6 @@ package com.runners.controller;
 
 
 import com.runners.domain.Patient;
-import com.runners.dto.AppPatDto;
 import com.runners.dto.PatResponse;
 import com.runners.dto.PatientDto;
 import com.runners.service.PatientService;

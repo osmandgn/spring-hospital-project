@@ -34,7 +34,7 @@ public class DocResponse {
     private Integer dateOfStart;
 
 
-    private List<AppDocDto> appList = new ArrayList<>();
+    private List<AppointmentDtoForDoc> appList = new ArrayList<>();
 
     public DocResponse(Doctor doctor) {
         this.name = doctor.getName();

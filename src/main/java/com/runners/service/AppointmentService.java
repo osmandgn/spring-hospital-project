@@ -4,9 +4,9 @@ package com.runners.service;
 import com.runners.domain.Appointment;
 import com.runners.domain.Doctor;
 import com.runners.domain.Patient;
-import com.runners.dto.AppDocDto;
+import com.runners.dto.AppointmentDtoForDoc;
 import com.runners.dto.AppDto;
-import com.runners.dto.AppPatDto;
+import com.runners.dto.AppointmentDtoForPat;
 import com.runners.dto.AppRequest;
 import com.runners.exception.ConflictException;
 import com.runners.exception.ResourceNotFoundException;
@@ -97,25 +97,25 @@ public class AppointmentService {
         } else throw new ResourceNotFoundException("Appointment not found with id : " + id);
     }
 
-    public List<AppPatDto> findAppDtoByPatient(Patient patient) {
+    public List<AppointmentDtoForPat> findAppDtoByPatient(Patient patient) {
 
         List<Appointment> list = appointmentRepository.findAllByPatient(patient);
-        List<AppPatDto> appPatDtoList = new ArrayList<>();
+        List<AppointmentDtoForPat> appPatDtoList = new ArrayList<>();
 
         for (Appointment w : list) {
 
-            appPatDtoList.add(new AppPatDto(w));
+            appPatDtoList.add(new AppointmentDtoForPat(w));
         }
         return appPatDtoList;
 
     }
 
-    public List<AppDocDto> findAppDtoByDoctor(Doctor doctor) {
+    public List<AppointmentDtoForDoc> findAppDtoByDoctor(Doctor doctor) {
 
         List<Appointment> list = appointmentRepository.findAllByDoctor(doctor);
-        List<AppDocDto> appDocDtoList = new ArrayList<>();
+        List<AppointmentDtoForDoc> appDocDtoList = new ArrayList<>();
         for (Appointment w : list) {
-            appDocDtoList.add(new AppDocDto(w));
+            appDocDtoList.add(new AppointmentDtoForDoc(w));
         }
         return appDocDtoList;
     }

@@ -35,7 +35,7 @@ public class PatResponse {
     private boolean healthInsurance;
 
 
-    List<AppPatDto> list = new ArrayList<>();
+    List<AppointmentDtoForPat> list = new ArrayList<>();
 
     public PatResponse(Patient patient) {
         this.name = patient.getName();
