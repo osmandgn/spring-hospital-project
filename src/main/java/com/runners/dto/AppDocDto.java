@@ -4,17 +4,12 @@ import com.runners.domain.Appointment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import lombok.Setter;
 
-
-
-@AllArgsConstructor
 @Getter
 @Setter
-
-public class AppDto {
-
+@AllArgsConstructor
+public class AppDocDto {
 
     private String date;
 
@@ -27,18 +22,18 @@ public class AppDto {
 
     private String patientName;
 
-    private String doctorName;
+    private Integer dateOfBirth;
 
-    private String departmentName;
+    private boolean healthInsurance;
 
-    public AppDto(Appointment appointment) {
-        this.doctorName= appointment.getDoctor().getName();
-        this.patientName= appointment.getPatient().getName();
+    public AppDocDto(Appointment appointment) {
         this.date= appointment.getDate();
         this.hour = appointment.getHour();
         this.minute = appointment.getMinute();
         this.notes = appointment.getNotes();
-        this.departmentName = appointment.getDoctor().getDepartmentName().name();
-    }
+        this.patientName = appointment.getPatient().getName();
+        this.dateOfBirth = appointment.getPatient().getDateOfBirth();
+        this.healthInsurance = appointment.getPatient().isHealthInsurance();
 
+    }
 }

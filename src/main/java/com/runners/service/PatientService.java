@@ -2,11 +2,12 @@ package com.runners.service;
 
 
 import com.runners.domain.Patient;
-import com.runners.dto.AppDto;
+import com.runners.dto.AppPatDto;
 import com.runners.dto.PatResponse;
 import com.runners.dto.PatientDto;
 import com.runners.exception.ResourceNotFoundException;
 import com.runners.repository.PatientRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.List;
 public class PatientService {
 
     @Autowired
+
     private PatientRepository patientRepository;
 
     @Autowired
@@ -42,22 +44,23 @@ public class PatientService {
          List<Patient> patientList = patientRepository.findAll();
          List<PatResponse> patResponseList = new ArrayList<>();
 
-
          for(Patient w: patientList){
              PatResponse pat = new PatResponse(w);
-             List<AppDto> appDtoList = appointmentService.findAppDtoByPatient(w);
-             pat.setAppointmentList(appDtoList);
+             List<AppPatDto> appPatDtoList = appointmentService.findAppDtoByPatient(w);
+             pat.setList(appPatDtoList);
              patResponseList.add(pat);
          }
         return patResponseList;
     }
 
-    public PatientDto findPatient(Long id) {
+    public PatResponse findPatient(Long id) {
 
         Patient patient = patientRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Patient not found by id : " + id));
 
-        PatientDto patientDto = new PatientDto(patient);
+        List<AppPatDto> appPatDtoList = appointmentService.findAppDtoByPatient(patient);
+        PatResponse patientDto = new PatResponse(patient);
+        patientDto.setList(appPatDtoList);
 
         return patientDto;
 
@@ -95,7 +98,6 @@ public class PatientService {
         return patientRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Patient not found by id :" + id));
     }
-
 
     public boolean existByid(Long id) {
 

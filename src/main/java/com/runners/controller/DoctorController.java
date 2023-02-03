@@ -34,13 +34,6 @@ public class DoctorController {
 
     }
 
-//    @GetMapping // http://localhost:8080/v1/doctor
-//    public ResponseEntity<List<Doctor>> getAllDoctor() {
-//        List<Doctor> list = doctorService.getAll();
-//
-//        return ResponseEntity.ok(list);
-//    }
-
     @GetMapping
     public ResponseEntity<List<DocResponse>> getAllDoc(){
 
@@ -52,9 +45,9 @@ public class DoctorController {
 
 
     @GetMapping("/{id}") // http://localhost:8080/v1/doctor/1
-    public ResponseEntity<DoctorDTO> getDocDTOById(@PathVariable("id") Long id) {
+    public ResponseEntity<DocResponse> getDocDTOById(@PathVariable("id") Long id) {
 
-        DoctorDTO dto = doctorService.getByIdDTO(id);
+        DocResponse dto = doctorService.getByIdDTO(id);
 
         return ResponseEntity.ok(dto);
 

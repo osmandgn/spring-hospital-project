@@ -1,19 +1,16 @@
 package com.runners.dto;
 
-import com.runners.domain.Appointment;
 
+import com.runners.domain.Appointment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import lombok.Setter;
 
 
-
-@AllArgsConstructor
 @Getter
 @Setter
-
-public class AppDto {
+@AllArgsConstructor
+public class AppPatDto {
 
 
     private String date;
@@ -25,20 +22,25 @@ public class AppDto {
 
     private String notes;
 
-    private String patientName;
+    private String prefixTitle;
 
     private String doctorName;
 
     private String departmentName;
 
-    public AppDto(Appointment appointment) {
-        this.doctorName= appointment.getDoctor().getName();
-        this.patientName= appointment.getPatient().getName();
+
+
+    public AppPatDto(Appointment appointment) {
         this.date= appointment.getDate();
         this.hour = appointment.getHour();
         this.minute = appointment.getMinute();
         this.notes = appointment.getNotes();
-        this.departmentName = appointment.getDoctor().getDepartmentName().name();
-    }
+        this.doctorName= appointment.getDoctor().getName();
+        this.prefixTitle = appointment.getDoctor().getPrefixName().name();
+        this.departmentName= appointment.getDoctor().getDepartmentName().name();
 
+
+
+
+    }
 }

@@ -2,6 +2,7 @@ package com.runners.controller;
 
 
 import com.runners.domain.Patient;
+import com.runners.dto.AppPatDto;
 import com.runners.dto.PatResponse;
 import com.runners.dto.PatientDto;
 import com.runners.service.PatientService;
@@ -36,14 +37,6 @@ public class PatientController {
 
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<Patient>> getAll(){
-//
-//       List<Patient> patientList = patientService.getAll();
-//
-//       return ResponseEntity.ok(patientList);
-//
-//    }
 
     @GetMapping
     public ResponseEntity<List<PatResponse>> getAllPat() {
@@ -53,9 +46,9 @@ public class PatientController {
     }
 
     @GetMapping("/query")
-    public ResponseEntity<PatientDto> getPatient(@RequestParam("id") Long id) {
+    public ResponseEntity<PatResponse> getPatient(@RequestParam("id") Long id) {
 
-        PatientDto patientDto = patientService.findPatient(id);
+        PatResponse patientDto = patientService.findPatient(id);
 
         return ResponseEntity.ok(patientDto);
 

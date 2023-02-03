@@ -12,7 +12,7 @@ public enum City {
 
     TOKYO,
 
-    MOSKOW
+    MOSCOW
 
 
 
