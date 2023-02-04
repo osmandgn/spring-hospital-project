@@ -2,7 +2,7 @@ package com.runners.service;
 
 
 import com.runners.domain.Doctor;
-import com.runners.dto.AppointmentDtoForDoc;
+import com.runners.dto.AppDocDto;
 import com.runners.dto.DocResponse;
 import com.runners.dto.DoctorDTO;
 import com.runners.exception.ConflictException;
@@ -46,7 +46,7 @@ public class DoctorService {
 
         for(Doctor w: doctorList){
             DocResponse docResponse = new DocResponse(w);
-            List<AppointmentDtoForDoc> dtoList = appointmentService.findAppDtoByDoctor(w);
+            List<AppDocDto> dtoList = appointmentService.findAppDtoByDoctor(w);
             docResponse.setAppList(dtoList);
             docResponseList.add(docResponse);
         }
@@ -60,7 +60,7 @@ public class DoctorService {
         Doctor doctor = doctorRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Doctor not found by id : " + id));
         DocResponse dto = new DocResponse(doctor);
-        List<AppointmentDtoForDoc> dtoList = appointmentService.findAppDtoByDoctor(doctor);
+        List<AppDocDto> dtoList = appointmentService.findAppDtoByDoctor(doctor);
         dto.setAppList(dtoList);
         return dto;
 

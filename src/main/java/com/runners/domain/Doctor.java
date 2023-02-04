@@ -54,6 +54,10 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     private List<Appointment> appointmentList = new ArrayList<>();
 
+    @JoinColumn(name = "user_id")
+    @OneToOne
+    private  User user;
+
 
 
 

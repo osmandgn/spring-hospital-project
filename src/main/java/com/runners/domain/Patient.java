@@ -51,6 +51,11 @@ public class Patient {
     private List<Appointment> appointmentList = new ArrayList<>();
 
 
+    @JoinColumn(name = "user_id")
+    @OneToOne
+    private User user;
+
+
 
 
 

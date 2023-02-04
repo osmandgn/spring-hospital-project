@@ -1,15 +1,19 @@
 package com.runners.domain;
+
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "t_User")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -18,6 +22,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     @NotBlank
     private String firstName;
@@ -41,6 +46,23 @@ public class User {
     @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Patient patient;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
