@@ -2,11 +2,11 @@ package com.runners.domain.enums;
 
 public enum UserRole {
 
-    PATIENT,
+    ROLE_PATIENT,
 
-    DOCTOR,
+    ROLE_DOCTOR,
 
-    ADMIN
+    ROLE_ADMIN
 
 
 

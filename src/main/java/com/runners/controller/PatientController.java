@@ -9,6 +9,7 @@ import com.runners.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ public class PatientController {
 
 
     @PostMapping
+    @PreAuthorize("hasRole('PATIENT')")
     public ResponseEntity<Map<String, String>> createPatient(@Valid @RequestBody Patient patient) {
 
         patientService.createPatient(patient);
@@ -39,6 +41,7 @@ public class PatientController {
 
 
     @GetMapping
+    @PreAuthorize("hasRole('PATIENT')")
     public ResponseEntity<List<PatResponse>> getAllPat() {
         List<PatResponse> patResponseList = patientService.getAllPatient();
         return ResponseEntity.ok(patResponseList);
@@ -46,6 +49,7 @@ public class PatientController {
     }
 
     @GetMapping("/query")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('ADMIN')")
     public ResponseEntity<PatResponse> getPatient(@RequestParam("id") Long id) {
 
         PatResponse patientDto = patientService.findPatient(id);
@@ -55,6 +59,7 @@ public class PatientController {
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('ADMIN')")
     public ResponseEntity<String> deletePatient(@PathVariable("id") Long id) {
         patientService.deletePatient(id);
         String message = "Patient is deleted successfully !";
@@ -64,6 +69,7 @@ public class PatientController {
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("hasRole('PATIENT')")
     public ResponseEntity<Map<String, String>> updatePatient(@PathVariable("id") Long id, @Valid @RequestBody PatientDto patientDto) {
 
         patientService.updatePatient(id, patientDto);

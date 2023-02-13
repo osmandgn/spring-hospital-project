@@ -8,6 +8,7 @@ import com.runners.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping // http://localhost:8080/v1/doctor
     public ResponseEntity<Map<String, String>> createDoctor(@Valid @RequestBody Doctor doctor) {
         doctorService.createDoctor(doctor);
@@ -35,6 +37,7 @@ public class DoctorController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<DocResponse>> getAllDoc(){
 
         List<DocResponse> docResponseList = doctorService.getAllDoc();
@@ -45,6 +48,7 @@ public class DoctorController {
 
 
     @GetMapping("/{id}") // http://localhost:8080/v1/doctor/1
+    @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
     public ResponseEntity<DocResponse> getDocDTOById(@PathVariable("id") Long id) {
 
         DocResponse dto = doctorService.getByIdDTO(id);

@@ -38,16 +38,13 @@ public class UserService {
 
         user.setPassword(encodePwrd);
 
-        Role role = roleService.getByRole(UserRole.DOCTOR);
+        Role role = roleService.getByRole(UserRole.ROLE_ADMIN);
 
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
 
         userRepository.save(user);
-
-
-
 
 
     }
