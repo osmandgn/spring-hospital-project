@@ -57,6 +57,18 @@ public class DoctorController {
 
     }
 
+    @DeleteMapping("/{id}") // http://localhost:8080/v1/doctor/1
+    public ResponseEntity<String> deleteById(@PathVariable Long id) {
+
+        doctorService.deleteDoc(id);
+
+        String message = "Doctor is deleted successfully.";
+
+        return ResponseEntity.ok(message);
+
+
+    }
+
 
 
 
