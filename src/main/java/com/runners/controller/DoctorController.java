@@ -69,7 +69,17 @@ public class DoctorController {
 
     }
 
+    @PutMapping("/{id}") // http://localhost:8080/v1/doctor/1
+    public ResponseEntity<Map<String, String>> updateDoctor(@PathVariable("id") Long id,
+                                                            @Valid @RequestBody DoctorDTO doctorDTO){
 
+        doctorService.updateDoctor(id,doctorDTO);
+        Map<String,String> map = new HashMap<>();
+        map.put("message", "Doctor is updated successfully");
+        map.put("status", "true");
+
+        return new ResponseEntity<>(map,HttpStatus.OK);
+    }
 
 
 }
